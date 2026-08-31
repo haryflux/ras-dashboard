@@ -10,7 +10,7 @@
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white">
   <img alt="Vite" src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white">
   <img alt="React Router" src="https://img.shields.io/badge/React_Router-6-CA4245?logo=reactrouter&logoColor=white">
-  <img alt="Status" src="https://img.shields.io/badge/Sprint_1-UI_Shell-7c5cff">
+  <img alt="Status" src="https://img.shields.io/badge/Sprint_1-Complete-34d399">
 </p>
 
 ---
@@ -19,7 +19,7 @@
 
 Hey — thanks for checking out this repo!
 
-This is the **frontend** for the RAS Training Hub: the part people actually see and click. It's a dark, modern web app where an associate signs in, tells us a bit about themselves, and lands on a personalized dashboard. Managers get their own view to keep an eye on the team.
+This is the **frontend** for the RAS Training Hub: the part people actually see and click. It's a dark, modern web app where an associate signs in, tells us a bit about themselves, and lands on a fully personalized learning experience. Managers get their own view to keep an eye on the team.
 
 If you've never run a web project before, don't worry — I wrote the setup steps assuming **zero prior experience**. If you get stuck, jump to the [Troubleshooting](#-when-things-go-wrong) section; I hit most of those snags myself while building this. 🙂
 
@@ -27,41 +27,50 @@ If you've never run a web project before, don't worry — I wrote the setup step
 
 ## ✨ What's inside
 
-This isn't just empty screens — it's a full, clickable journey:
+Every screen in the app is fully built out — not just a skeleton:
 
 | Screen | What happens there |
 |---|---|
 | 🔐 **Login** | Sign in with SSO or a work email. Your name is picked up from the email and used across the app. |
-| 🧭 **Onboarding** | A friendly 5-step wizard that builds your learning profile (role, skills, goals, learning style). |
-| 🏠 **Associate Dashboard** | Donut charts for skill readiness, learning progress & CPE hours, plus recommendations and a skill snapshot. |
-| 👥 **Manager Dashboard** | Team readiness bars, "needs your attention" alerts, team skill-gap heatmap, and team donut charts. |
-| 🎯 **Skill Center / Learning / Certifications / Progress** | Filled, styled pages showing skills, courses, certs, and CPE tracking. |
-| 💬 **Knowledge Assistant** | The shell for the future AI Q&A chat (the AI itself is a separate ticket). |
+| 🧭 **Onboarding** | A friendly 5-step wizard that builds your learning profile (role, skills, proficiency, goals, learning style). |
+| 🏠 **Associate Dashboard** | Donut charts for skill readiness, learning progress & CPE hours, AI recommendations, recent activity, and a skill snapshot. |
+| 🎯 **Skill Center** | Overall readiness donut, gap-status chips per skill, and a "next best action" that jumps straight into learning. |
+| 📚 **Learning Hub** | A "continue where you left off" hero, plus tabs — *In Progress · Recommended · Completed* — with course cards. |
+| 💬 **Knowledge Assistant** | A chat UI with suggested questions and source citations — the shell for the future RAG-powered assistant. |
+| 👤 **My Profile** | Profile hero, a completeness meter, skills, and certifications at a glance. |
+| 🏅 **Certifications** | Completion donut, certification list with status chips, and CPE hours tracked toward the 40-hour requirement. |
+| 📈 **Progress** | Three donut charts (skill / learning / CPE) plus a milestones feed. |
+| 🧪 **Simulations** | Mock audit scenario cards with difficulty badges and best-score tracking. |
+| 👥 **Manager Dashboard** | Team stat tiles, team donut charts, a "needs your attention" alert feed, and a team skill-gap view. |
+| 🧭 **Team Skills** | A colour-coded skill heatmap across the whole team — scan gaps at a glance. |
+| 📊 **Team Progress** | Team donuts plus individual readiness bars per associate. |
+| 📝 **Assessments** | A submissions table with status chips and review actions. |
 
-> 🎨 The whole thing shares one cohesive **dark theme** — login, onboarding, and both dashboards all speak the same visual language.
+> 🎨 The whole thing shares one cohesive **dark theme** — login, onboarding, and every dashboard page speak the same visual language.
 
 ---
 
 ## 🚀 Run it on your computer (beginner-friendly)
 
-### Step 0 — Install Node.js (only once, ever)
+### Step 0 — Check you have Node.js
 
-This project runs on **Node.js**. To check if you already have it, open a terminal (PowerShell on Windows) and type:
+This project runs on **Node.js**. Open a terminal (PowerShell on Windows) and check your version:
 
 ```bash
 node -v
+npm -v
 ```
 
-- If you see a version like `v20.11.0`, you're good — skip to Step 1.
-- If it says *"not recognized"*, download the **LTS** version from **[nodejs.org](https://nodejs.org)**, install it, then **close and reopen your terminal**.
+- If you see version numbers (e.g. `v20.11.0` and `10.2.4`), you're all set — skip to Step 1.
+- If it says *"not recognized"*, download the **LTS** version from **[nodejs.org](https://nodejs.org)**, install it, then **close and reopen your terminal** before trying again.
 
-> 💡 On a locked-down work laptop that blocks installers? You can run the whole project in your browser instead — see [Run it online](#-run-it-online-no-install) below.
+> 💡 No install access on your machine (e.g. a locked-down work laptop)? Skip straight to [Run it online](#-run-it-online-no-install) — the app runs entirely in your browser, no Node required.
 
 ### Step 1 — Get the code
 
 ```bash
-git clone https://github.com/haryflux/ras-dashboard.git
-cd ras-dashboard
+git clone https://github.com/Hari-Maheshwari_WipfliAd/ras-training-hub.git
+cd ras-training-hub
 ```
 
 ### Step 2 — Install the libraries (one time)
@@ -84,13 +93,13 @@ You'll see a line like `Local: http://localhost:5173/`. Open that link in your b
 
 ## 🌐 Run it online (no install)
 
-Can't install anything locally? No problem. Open this link and it runs entirely in your browser:
+Prefer not to install anything, or just want to pull it up quickly for a demo? Open this link and it runs entirely in your browser — no Node, no setup:
 
 ```
-https://stackblitz.com/github/haryflux/ras-dashboard
+https://stackblitz.com/github/Hari-Maheshwari_WipfliAd/ras-training-hub
 ```
 
-Give it about a minute to boot and install, and the app appears in the preview panel. Great for a quick demo, too.
+Give it about a minute to boot and install, and the app appears in the preview panel. Handy for sharing a live link with teammates or judges without asking them to clone anything.
 
 ---
 
@@ -100,8 +109,11 @@ Once it's running:
 
 1. **Sign in** with any work-style email like `yourname@wipfli.com` — notice your name shows up on the dashboard.
 2. **Walk the onboarding** — click through all 5 steps to the profile summary.
-3. **Flip the persona switch** (top-right dropdown) between **Associate** and **Manager** and watch the whole app change.
-4. **Resize the window** narrow — the sidebar collapses into a mobile menu. 📱
+3. **Explore every sidebar item** — Skill Center, Learning Hub, Knowledge Assistant, Certifications, Progress, Simulations — each is fully styled and interactive.
+4. **Flip the persona switch** (top-right dropdown) between **Associate** and **Manager** and watch the whole app change — including a completely different set of pages (Team Skills, Team Progress, Assessments).
+5. **Try the Knowledge Assistant** — click one of the suggested questions to see a sample grounded answer with a source citation.
+6. **Resize the window** narrow — the sidebar collapses into a mobile menu. 📱
+7. **Log out** (top-right button) — returns you to the login screen and clears your name.
 
 > ℹ️ You'll see a red **"API Offline"** badge in the header. That's expected and correct — there's no backend running yet. It turns green automatically once the FastAPI service is connected.
 
@@ -117,16 +129,17 @@ src/
 ├── models/       →  shared TypeScript types — one source of truth
 ├── data/         →  mock people/data for the demo (no real info, ever)
 ├── context/      →  remembers which persona is selected
-├── components/   →  reusable building blocks (header, sidebar, cards, charts, states)
-├── routes/       →  the route list + every page
+├── components/   →  reusable building blocks (header, sidebar, cards, donut charts, states)
+├── routes/       →  the route list + every page (login, onboarding, dashboards, all sub-pages)
 └── test/         →  automated tests
 ```
 
 A few conventions worth knowing:
 
 - **Anything that talks to the network lives in `src/api`.** Pages never call the internet directly.
-- **Reusable pieces live in `src/components`** so we don't rewrite the same button twice.
+- **Reusable pieces live in `src/components`** — including the shared `Donut` chart used across every dashboard page.
 - **Which pages a persona can see is decided in `src/routes/routeConfig.tsx`** — change it there, and the sidebar updates itself.
+- **Every content page follows the same rhythm:** orient (title) → summarize (stat tiles / donuts) → act (the main list or cards) → guide (a clear next step), so the experience feels consistent everywhere.
 
 ---
 
@@ -144,7 +157,7 @@ The tests confirm the important stuff: the app boots, the right menu shows for e
 
 This app was built to be safe to share from day one:
 
-- 🚫 **No client or engagement data** — everything on screen is realistic *mock* data.
+- 🚫 **No client or engagement data** — everything on screen is realistic *mock* data (including the Knowledge Assistant's demo answers and the manager's team roster).
 - 🔑 **No secrets in the browser** — no API keys, no tokens baked into the frontend.
 - 🛡️ **No direct calls to AI/cloud from the browser** — those go through our own backend later.
 
@@ -164,6 +177,8 @@ return apiGet<Persona>("/profile");
 
 The dev server already forwards `/api` requests to `http://127.0.0.1:8000`, so once the backend is up, the frontend just starts getting real answers. No rewrite needed.
 
+The **Knowledge Assistant** and **Simulations** pages currently return canned demo content — these are built to be swapped for real RAG/AI calls (through the backend, never directly from the browser) once those services are ready.
+
 ---
 
 ## 🧰 Built with
@@ -172,7 +187,7 @@ The dev server already forwards `/api` requests to `http://127.0.0.1:8000`, so o
 - **Vite** — lightning-fast dev server & build
 - **React Router** — page navigation and persona routing
 - **Vitest + Testing Library** — the automated tests
-- **Plain CSS** — a custom dark theme (no heavy UI library, keeps it light)
+- **Plain CSS** — a custom dark theme with reusable patterns (stat tiles, donut charts, feeds, heatmaps) — no heavy UI library, keeps it light
 
 ---
 
@@ -196,7 +211,7 @@ This shell is intentionally ready for these to plug in:
 
 - 🔐 Real SSO / Entra ID sign-in
 - 🧠 Skill-gap calculation engine
-- 🔎 RAG-powered Knowledge Assistant
+- 🔎 RAG-powered Knowledge Assistant (real retrieval + citations)
 - 🧪 Simulation generation + AI scoring
 - 📊 Final reporting & analytics
 
