@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Login } from "./routes/pages/Login";
+import { Onboarding } from "./routes/pages/Onboarding";
 import { AppLayout } from "./components/layout/AppLayout";
 import { DashboardPage } from "./routes/pages/DashboardPage";
 import { ProfilePage } from "./routes/pages/ProfilePage";
@@ -25,7 +27,10 @@ export default function App() {
   return (
     <Routes>
       {/* Send the root URL to the associate dashboard by default. */}
-      <Route path="/" element={<Navigate to="/associate/dashboard" replace />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
+
+      <Route path="/login" element={<Login />} />
+<Route path="/onboarding" element={<Onboarding />} />
 
       {/* Associate + Manager share the same shell via AppLayout. */}
       <Route element={<AppLayout />}>

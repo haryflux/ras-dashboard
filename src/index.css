@@ -451,4 +451,48 @@
      .app-main { padding: 20px; }
      .page__head h1 { font-size: 24px; }
    }
-   
+   /* ===========================================================================
+   APPEND THESE STYLES TO THE BOTTOM of src/index.css
+   (adds the header user-avatar chip + log-out button)
+   =========================================================================== */
+
+/* User chip: avatar initial + name */
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 12px 5px 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+  border-radius: 999px;
+}
+.user-chip__avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 800; color: #fff;
+  background: var(--grad-brand);
+  box-shadow: var(--glow-blue);
+}
+.user-chip__name { font-size: 13.5px; font-weight: 700; color: var(--text); }
+
+/* Log-out button */
+.logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+  color: var(--text-2);
+  font-size: 13px; font-weight: 700; font-family: inherit;
+  padding: 8px 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.logout-btn:hover { background: rgba(251, 113, 133, 0.15); border-color: rgba(251,113,133,0.4); color: #fb7185; transform: translateY(-1px); }
+
+@media (max-width: 980px) {
+  .user-chip__name { display: none; }
+  .logout-btn__label { display: none; }
+}
