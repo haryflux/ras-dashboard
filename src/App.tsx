@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Login } from "./routes/pages/Login";
-import { Onboarding } from "./routes/pages/Onboarding";
+import { OnboardingShell } from "./routes/pages/OnboardingShell";
 import { AppLayout } from "./components/layout/AppLayout";
 import { DashboardPage } from "./routes/pages/DashboardPage";
 import { ProfilePage } from "./routes/pages/ProfilePage";
@@ -30,7 +30,7 @@ export default function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
 
       <Route path="/login" element={<Login />} />
-<Route path="/onboarding" element={<Onboarding />} />
+      <Route path="/onboarding" element={<OnboardingShell />} />
 
       {/* Associate + Manager share the same shell via AppLayout. */}
       <Route element={<AppLayout />}>
