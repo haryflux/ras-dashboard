@@ -20,12 +20,11 @@ export interface AppRoute {
 // The order here is the order shown in the sidebar.
 export const appRoutes: AppRoute[] = [
   { path: "dashboard", label: "Dashboard", icon: "🏠", roles: ["associate", "manager"] },
-  { path: "profile", label: "My Profile", icon: "👤", roles: ["associate"] },
-  { path: "skills", label: "Skill Center", icon: "🎯", roles: ["associate"] },
   { path: "learning", label: "Learning Hub", icon: "📚", roles: ["associate"] },
   { path: "assistant", label: "Knowledge Assistant", icon: "💬", roles: ["associate"] },
   { path: "simulations", label: "Simulations", icon: "🧪", roles: ["associate"] },
   { path: "certifications", label: "Certifications", icon: "🏅", roles: ["associate", "manager"] },
+  { path: "skills", label: "Skill Center", icon: "🎯", roles: ["associate"] },
   { path: "progress", label: "Progress", icon: "📈", roles: ["associate"] },
   // Manager-only routes
   { path: "team-skills", label: "Team Skills", icon: "🧭", roles: ["manager"] },
