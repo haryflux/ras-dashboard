@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./onboarding.css";
+import { ThemeToggle } from "../../components/onboarding/ThemeToggle";
 
 // ---------------------------------------------------------------------------
 // Login.tsx  —  ATLAS-inspired sign-in (DARK theme).
@@ -31,6 +32,7 @@ export function Login() {
 
   return (
     <div className="atlas-root">
+      <ThemeToggle />
       <div className="atlas-login">
         <p className="atlas-brand">RAS TRAINING HUB</p>
         <h1>Welcome Back!</h1>

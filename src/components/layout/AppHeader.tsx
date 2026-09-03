@@ -1,41 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { usePersona } from "../../context/PersonaContext";
+import { getCurrentUserName } from "../../api/currentUser";
 import { HealthBadge } from "../HealthBadge";
+import { ThemeToggle } from "../onboarding/ThemeToggle";
 import type { PersonaRole } from "../../models";
 
-// ---------------------------------------------------------------------------
-// The top application header:
-//   - product name + logo
-//   - persona switcher (Associate <-> Manager)
-//   - FastAPI health badge
-//   - user avatar (initial) + name
-//   - Log out (clears saved name, returns to login)
-// ---------------------------------------------------------------------------
-
-// Read the display name saved at login (falls back to a sensible default).
-function getUserName(role: PersonaRole): string {
-  const stored =
-    typeof localStorage !== "undefined"
-      ? localStorage.getItem("ras_user_name")
-      : null;
-  if (stored) return stored;
-  return role === "manager" ? "Labeeb" : "Hari";
-}
 
 export function AppHeader({ onToggleSidebar }: { onToggleSidebar: () => void }) {
   const { role, setRole } = usePersona();
   const navigate = useNavigate();
 
-  const userName = getUserName(role);
+  const fullName = getCurrentUserName(role);
+  const userName = fullName.split(" ")[0]; // keep the header compact (first name only)
   const initial = userName.charAt(0).toUpperCase();
 
   const handlePersonaChange = (next: PersonaRole) => {
     setRole(next);
     navigate(`/${next}/dashboard`);
   };
-
+  const goToProfile = () => {
+    if (role === "associate") navigate("/associate/profile");
+  };
+  
   const handleLogout = () => {
-    // Clear the saved identity and return to the login screen.
     localStorage.removeItem("ras_user_name");
     localStorage.removeItem("ras_user_email");
     navigate("/login");
@@ -68,13 +55,19 @@ export function AppHeader({ onToggleSidebar }: { onToggleSidebar: () => void }) 
           </select>
         </label>
 
+        <ThemeToggle variant="inline" />
+
         <HealthBadge />
 
-        {/* User chip: avatar initial + name */}
-        <div className="user-chip">
-          <span className="user-chip__avatar" aria-hidden="true">{initial}</span>
-          <span className="user-chip__name">{userName}</span>
-        </div>
+        <button
+  type="button"
+  className="user-chip"
+  onClick={goToProfile}
+  aria-label="Open my profile"
+>
+  <span className="user-chip__avatar" aria-hidden="true">{initial}</span>
+  <span className="user-chip__name">{userName}</span>
+</button>
 
         <button className="logout-btn" onClick={handleLogout} title="Log out">
           <span aria-hidden="true">⏻</span>
