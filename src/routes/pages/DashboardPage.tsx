@@ -79,7 +79,11 @@ export function DashboardPage() {
 
       {/* ---- Skill snapshot ---- */}
       <PlaceholderCard title="Skill Snapshot" icon="🎯">
-        <ul className="skill-list">
+  <div className="atlas-legend">
+    <span><i className="legend-swatch legend-swatch--bar" /> Current level</span>
+    <span><i className="legend-swatch legend-swatch--tick" /> Target level</span>
+  </div>
+  <ul className="skill-list">
           {data.skills.map((skill) => {
             const gap = skill.targetLevel - skill.currentLevel;
             const chipClass = gap > 30 ? "chip--red" : gap > 15 ? "chip--amber" : "chip--green";
@@ -95,7 +99,7 @@ export function DashboardPage() {
                 </div>
                 <div className="progress">
                   <div className="progress__bar" style={{ width: `${skill.currentLevel}%` }} />
-                  <div className="progress__target" style={{ left: `${skill.targetLevel}%` }} />
+                  <div className="progress__target" style={{ left: `${skill.targetLevel}%` }} title={`Target: ${skill.targetLevel}%`} />
                 </div>
               </li>
             );
