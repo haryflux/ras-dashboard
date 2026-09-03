@@ -50,6 +50,11 @@
      --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
      --glow-blue: 0 8px 30px rgba(79, 140, 255, 0.45);
      --glow-violet: 0 8px 30px rgba(124, 92, 255, 0.4);
+
+       /* Elevation levels (dark theme defaults) */
+  --elev-1: 0 1px 2px rgba(0,0,0,0.3);
+  --elev-2: 0 6px 18px rgba(0,0,0,0.35);
+  --elev-3: 0 14px 40px rgba(0,0,0,0.45);
    
      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
    }
@@ -209,7 +214,7 @@
    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
    .page__head { margin-bottom: 28px; }
    .page__head h1 {
-     margin: 0 0 6px; font-size: 30px; font-weight: 800; letter-spacing: -0.5px; color: #fff;
+     margin: 0 0 6px; font-size: 30px; font-weight: 800; letter-spacing: -0.5px; color: var(--text);
    }
    .page__subtitle { margin: 0; color: var(--text-3); font-size: 14.5px; font-weight: 500; }
    
@@ -225,7 +230,7 @@
      background: linear-gradient(180deg, var(--surface), var(--bg-2));
      border: 1px solid var(--border);
      border-radius: var(--radius);
-     box-shadow: var(--shadow);
+     box-shadow: var(--elev-2);
      margin-bottom: 20px;
      overflow: hidden;
      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
@@ -291,7 +296,7 @@
    .stat--green .stat__icon { background: rgba(52,211,153,0.15); box-shadow: inset 0 0 20px rgba(52,211,153,0.15); }
    .stat--amber .stat__icon { background: rgba(251,191,36,0.15); box-shadow: inset 0 0 20px rgba(251,191,36,0.15); }
    .stat__label { font-size: 12.5px; color: var(--text-3); font-weight: 600; margin: 0 0 4px; }
-   .stat__value { font-size: 26px; font-weight: 800; color: #fff; margin: 0; letter-spacing: -0.5px; }
+   .stat__value { font-size: 26px; font-weight: 800; color: var(--text); margin: 0; letter-spacing: -0.5px; }
    .stat__value small { font-size: 13px; color: var(--text-3); font-weight: 600; margin-left: 4px; }
    .stat__trend { font-size: 12px; font-weight: 700; margin-top: 3px; }
    .stat__trend.up { color: var(--green); }
@@ -317,7 +322,7 @@
      position: absolute; inset: 0;
      display: flex; flex-direction: column; align-items: center; justify-content: center;
    }
-   .ring__pct { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+   .ring__pct { font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
    .ring__sub { font-size: 11px; color: var(--text-3); font-weight: 600; }
    .ring-card__label { font-size: 14px; font-weight: 700; color: var(--text); }
    .ring-card__meta { font-size: 12.5px; color: var(--text-3); font-weight: 500; margin-top: -6px; }
@@ -465,6 +470,13 @@
   background: var(--surface-2);
   border: 1px solid var(--border-2);
   border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.user-chip:hover {
+  border-color: var(--indigo);
+  transform: translateY(-1px);
 }
 .user-chip__avatar {
   width: 30px; height: 30px;
@@ -563,4 +575,172 @@
 
 @media (max-width: 860px) {
   .course-grid { grid-template-columns: 1fr; }
+}
+/* ===========================================================================
+   APPEND to the BOTTOM of src/index.css
+   Global LIGHT THEME override for the whole dashboard (header, sidebar,
+   cards, stats, rings, tables, everything).
+
+   Same technique as the onboarding light theme: every dashboard component
+   already reads colors from var(--xxx) custom properties defined in :root.
+   We just redefine those same variables when <html data-theme="light"> is
+   set (see ThemeToggle.tsx), and the entire app reskins automatically —
+   zero changes needed in any component file.
+   =========================================================================== */
+
+   html[data-theme="light"] {
+    --bg-0: #eef1f7;
+    --bg-1: #f3f5fa;
+    --bg-2: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f2f4f9;
+    --border: #e3e7f0;
+    --border-2: #d7dceb;
+  
+    --text: #10162a;
+    --text-2: #4a5573;
+    --text-3: #7b869e;
+  
+    --blue: #2f6bff;
+    --indigo: #6d4bff;
+    --violet: #9333ea;
+    --cyan: #0891b2;
+    --teal: #0d9488;
+    --green: #16a34a;
+    --amber: #d97706;
+    --red: #e11d48;
+    --pink: #db2777;
+  
+    --grad-brand: linear-gradient(120deg, #2f6bff 0%, #6d4bff 55%, #9333ea 100%);
+    --grad-cyan: linear-gradient(120deg, #0891b2, #2f6bff);
+    --grad-green: linear-gradient(120deg, #16a34a, #0891b2);
+    --grad-amber: linear-gradient(120deg, #d97706, #e11d48);
+  
+    --shadow: 0 6px 20px rgba(16, 22, 42, 0.06);
+    --shadow-lg: 0 18px 46px rgba(16, 22, 42, 0.10);
+    --glow-blue: 0 8px 24px rgba(47, 107, 255, 0.20);
+    --glow-violet: 0 8px 24px rgba(109, 75, 255, 0.18);
+
+      /* Elevation — stronger than dark theme to fake depth on light backgrounds */
+  --elev-1: 0 1px 3px rgba(16,22,42,0.08);
+  --elev-2: 0 8px 24px rgba(16,22,42,0.10);
+  --elev-3: 0 16px 40px rgba(16,22,42,0.12);
+  }
+  
+  html[data-theme="light"] body {
+    background:
+      radial-gradient(1100px 620px at 85% -8%, rgba(109, 75, 255, 0.08), transparent 60%),
+      radial-gradient(900px 560px at -5% 108%, rgba(8, 145, 178, 0.06), transparent 55%),
+      radial-gradient(700px 500px at 50% 50%, rgba(47, 107, 255, 0.04), transparent 70%),
+      var(--bg-1);
+  }
+  
+  /* Header: swap the glass-dark look for a clean light glass look */
+  html[data-theme="light"] .app-header {
+    background: rgba(255, 255, 255, 0.78);
+    border-bottom: 1px solid var(--border);
+  }
+  html[data-theme="light"] .app-header__title {
+    background: linear-gradient(90deg, #10162a, #2f6bff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  html[data-theme="light"] .icon-btn {
+    background: var(--surface-2);
+    border-color: var(--border-2);
+    color: var(--text);
+  }
+  html[data-theme="light"] .icon-btn:hover { background: #e7ebf5; }
+  
+  html[data-theme="light"] .persona-switch select {
+    background: #ffffff;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2356606f' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 13px center;
+  }
+  
+  html[data-theme="light"] .health-badge,
+  html[data-theme="light"] .user-chip,
+  html[data-theme="light"] .logout-btn {
+    background: var(--surface-2);
+    border-color: var(--border-2);
+    color: var(--text-2);
+  }
+  
+  /* Sidebar */
+  html[data-theme="light"] .sidebar {
+    background: rgba(255, 255, 255, 0.85);
+    border-right: 1px solid var(--border);
+  }
+  html[data-theme="light"] .sidebar__link:hover {
+    background: #eef1fb;
+  }
+  
+  /* Cards, stats, rings, tables all inherit via variables already —
+     just patch the option/scrollbar/skeleton bits that use hardcoded colors. */
+  html[data-theme="light"] .atlas-select option,
+  html[data-theme="light"] select option {
+    background: #ffffff;
+    color: var(--text);
+  }
+  
+  html[data-theme="light"] ::-webkit-scrollbar-thumb {
+    background: #d7dceb;
+    border-color: var(--bg-1);
+  }
+  html[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: #c3cbe0; }
+  
+  html[data-theme="light"] .ring__track { fill: #e7ebf5; }
+  
+  html[data-theme="light"] .spinner {
+    border-color: #e3e7f0;
+    border-top-color: var(--blue);
+  }
+  
+  /* ---------- Inline theme toggle (used in the dashboard header) ---------- */
+  .theme-toggle-inline {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface-2);
+    color: var(--text-2);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+  .theme-toggle-inline:hover {
+    background: var(--indigo);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  /* ---- Skill Snapshot legend ---- */
+.atlas-legend {
+  display: flex;
+  gap: 18px;
+  font-size: 12px;
+  color: var(--text-3);
+  margin-bottom: 14px;
+}
+.legend-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 8px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.legend-swatch--bar {
+  background: var(--grad-brand);
+}
+.legend-swatch--tick {
+  background: var(--amber);
+  width: 3px;
+  height: 12px;
+  border-radius: 2px;
 }
