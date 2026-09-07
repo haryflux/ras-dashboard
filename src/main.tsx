@@ -10,7 +10,7 @@ import "./index.css";
 //   - PersonaProvider -> makes the selected persona available everywhere
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/ras-dashboard">
       <PersonaProvider>
         <App />
       </PersonaProvider>
