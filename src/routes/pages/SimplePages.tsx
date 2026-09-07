@@ -3,6 +3,7 @@ import { PlaceholderCard } from "../../components/PlaceholderCard";
 import { Donut } from "../../components/Donut";
 import { LoadingState } from "../../components/states/LoadingState";
 import { ErrorState } from "../../components/states/ErrorState";
+import { Sparkles, Library } from "lucide-react";
 
 // ---------------------------------------------------------------------------
 // Remaining pages, all styled to match the premium theme:
@@ -122,28 +123,93 @@ export function ProgressPage() {
 }
 
 // ===========================================================================
-// SIMULATIONS
+// SIMULATIONS — split into Recommended For You + Standard Library
 // ===========================================================================
+
+interface Scenario {
+  title: string;
+  diff: "Beginner" | "Intermediate" | "Advanced";
+  time: string;
+  tone: string;
+  icon: string;
+  best: string;
+  relatedSkill?: string; // must match a skill name in mockPersonas.ts to be recommendable
+}
+
+const SCENARIOS: Scenario[] = [
+  { title: "User Access Review (UAR)", diff: "Beginner", time: "20 min", tone: "chip--green", icon: "🔐", best: "72%", relatedSkill: "Policy Testing" },
+  { title: "SOC 2 Control Walkthrough", diff: "Intermediate", time: "35 min", tone: "chip--amber", icon: "🧾", best: "—", relatedSkill: "SOC Walkthroughs" },
+  { title: "Sampling Scenario", diff: "Intermediate", time: "25 min", tone: "chip--amber", icon: "📊", best: "—", relatedSkill: "Sampling" },
+  { title: "Full Mock Engagement", diff: "Advanced", time: "60 min", tone: "chip--red", icon: "🏢", best: "Locked" },
+];
+
 export function SimulationsPage() {
-  const scenarios = [
-    { title: "User Access Review (UAR)", diff: "Beginner", time: "20 min", tone: "chip--green", icon: "🔐", best: "72%" },
-    { title: "SOC 2 Control Walkthrough", diff: "Intermediate", time: "35 min", tone: "chip--amber", icon: "🧾", best: "—" },
-    { title: "Sampling Scenario", diff: "Intermediate", time: "25 min", tone: "chip--amber", icon: "📊", best: "—" },
-    { title: "Full Mock Engagement", diff: "Advanced", time: "60 min", tone: "chip--red", icon: "🏢", best: "Locked" },
-  ];
+  const { data, loading, error, reload } = useProfile();
+
+  if (loading) return <LoadingState message="Loading simulations..." />;
+  if (error) return <ErrorState message={error} onRetry={reload} />;
+  if (!data) return null;
+
+  // Rank the user's skills by gap size (target - current), largest first.
+  const rankedGaps = [...data.skills]
+    .map((s) => ({ name: s.name, gap: s.targetLevel - s.currentLevel }))
+    .sort((a, b) => b.gap - a.gap);
+
+  // A skill is "in focus" if it's among the user's top 2 biggest gaps.
+  const focusSkills = new Set(rankedGaps.slice(0, 2).map((s) => s.name));
+
+  const recommended = SCENARIOS.filter((s) => s.relatedSkill && focusSkills.has(s.relatedSkill));
+  const standard = SCENARIOS.filter((s) => !recommended.includes(s));
+
+  const reasonFor = (relatedSkill?: string) => {
+    if (!relatedSkill) return null;
+    const match = rankedGaps.find((g) => g.name === relatedSkill);
+    if (!match) return null;
+    return `Matches your ${relatedSkill} gap (${match.gap}%)`;
+  };
+
   return (
     <div className="page">
       <div className="page__head">
         <h1>Simulations 🧪</h1>
         <p className="page__subtitle">Practice realistic audit scenarios and get instant AI feedback. (Scoring engine is a later ticket.)</p>
       </div>
+
       <div className="grid grid--3">
         <Stat variant="blue" icon="🧪" label="Attempted" value="1" />
         <Stat variant="green" icon="🎯" label="Best Score" value="72%" />
         <Stat variant="violet" icon="🏆" label="Avg. Score" value="72%" />
       </div>
+
+      {recommended.length > 0 && (
+        <>
+          <p className="sim-section-head">
+            <Sparkles size={15} className="sim-section-head__icon" /> Recommended For You
+          </p>
+          <div className="course-grid">
+            {recommended.map((s) => (
+              <div className="course course--recommended" key={s.title}>
+                <div className="course__top">{s.icon}</div>
+                <div className="course__body">
+                  <p className="course__title">{s.title}</p>
+                  <p className="course__meta">{s.time} · Best: {s.best}</p>
+                  <p className="sim-reason">✨ {reasonFor(s.relatedSkill)}</p>
+                  <div className="course__foot">
+                    <span className={`chip ${s.tone}`}>{s.diff}</span>
+                    <button className="btn" style={{ padding: "7px 14px" }}>Start</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      <p className="sim-section-head">
+        <Library size={15} className="sim-section-head__icon" /> Standard Library
+      </p>
       <div className="course-grid">
-        {scenarios.map((s) => (
+        {standard.map((s) => (
           <div className="course" key={s.title}>
             <div className="course__top">{s.icon}</div>
             <div className="course__body">
@@ -295,7 +361,7 @@ export function AssessmentsPage() {
   );
 }
 
-// ---- shared helpers ----
+// ---- shared helpers (declared ONCE, used by every page above) ----
 function Stat({
   variant, icon, label, value, valueSmall,
 }: {
