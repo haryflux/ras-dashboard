@@ -1,0 +1,23 @@
+/// <reference types="vitest" />
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+// Vite config. The `test` block wires up Vitest for our frontend tests.
+export default defineConfig({
+    plugins: [react()],
+    base: "/ras-dashboard/",
+    server: {
+        port: 5173,
+        proxy: {
+            "/api": {
+                target: "http://127.0.0.1:8000",
+                changeOrigin: true,
+            },
+        },
+    },
+    test: {
+        globals: true,
+        environment: "jsdom",
+        setupFiles: "./src/test/setup.ts",
+        css: false,
+    },
+});

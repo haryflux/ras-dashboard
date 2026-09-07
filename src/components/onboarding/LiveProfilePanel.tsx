@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   learningStyles?: string[];
 }
 
-const rowVariants = {
+const rowVariants: Variants = {
   hidden: { opacity: 0, y: 8 },
   show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
 };

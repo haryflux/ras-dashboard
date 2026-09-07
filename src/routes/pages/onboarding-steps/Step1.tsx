@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Briefcase, MapPin } from "lucide-react";
 import { WhyWeAskThis } from "../../../components/onboarding/WhyWeAskThis";
 import { ExperienceInput } from "../../../components/onboarding/ExperienceInput";
@@ -19,7 +19,7 @@ interface StepProps {
   onBack: () => void;
 }
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 10 },
   show: (i: number) => ({
     opacity: 1,
