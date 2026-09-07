@@ -1,19 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import App from "./App";
 import { PersonaProvider } from "./context/PersonaContext";
 import "./index.css";
 
 // App entry point. We wrap <App /> in:
-//   - BrowserRouter  -> enables URL routing
+//   - HashRouter     -> enables GitHub Pages-compatible routing
 //   - PersonaProvider -> makes the selected persona available everywhere
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename="/ras-dashboard">
+    <HashRouter>
       <PersonaProvider>
         <App />
       </PersonaProvider>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
