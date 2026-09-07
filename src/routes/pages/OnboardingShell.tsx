@@ -78,7 +78,7 @@ export function OnboardingShell() {
           experience={data.experience > 0 ? String(data.experience) : undefined}
           skills={data.skills.length > 0 ? data.skills : undefined}
           goalSummary={data.goal.trim().length > 12 ? data.goal.trim() : undefined}
-          learningStyle={data.learningTypes.length > 0 ? data.learningTypes[0] : undefined}
+          learningStyles={data.learningTypes.length > 0 ? data.learningTypes : undefined}
         />
       </div>
     </div>
